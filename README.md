@@ -9,6 +9,15 @@ This project focuses on simulating and controlling the **Universal Robots UR3**,
 
 **Tech stack:** ROS 2 Humble · Ubuntu 22.04 · MoveIt 2 · Gazebo Classic · RViz2 · ros2_control · C++ · Python · OpenCV · Intel RealSense (pyrealsense2) · RoboDK API
 
+## 🎥 Demo videos
+
+| Demo | Video |
+|---|---|
+| UR3 simulated in Gazebo and moved with joint trajectories | [Watch](https://drive.google.com/file/d/1PE3DwFaBpafk_dYYePK-26resAGDYOTn/view?usp=sharing) |
+| MoveIt motion planning in RViz + recording joint angles | [Watch](https://drive.google.com/file/d/11h6GLUL-r-kAuBZAxoEpLJ22V9rI8s3I/view?usp=sharing) |
+| Real UR3 hardware controlled from ROS 2 | [Watch](https://drive.google.com/file/d/1zVEsSdLhUvHBWT_ES3-_VT3H8fEbtrh_/view?usp=sharing) |
+| Contour detection + RoboDK contour following (glue dispensing) | [Watch (1)](https://drive.google.com/file/d/1M3b55jrSM6bCR4SARstUZwAzJ8IIUkt2/view?usp=sharing) · [Watch (2)](https://drive.google.com/file/d/1ndm5ypgysjGRwmhZ_eQcjg_SJYLkwsUF/view?usp=sharing) |
+
 ---
 
 ## Repository structure
@@ -46,6 +55,8 @@ Key files (in `src/Universal_Robots_Gazebo_Simulation/Universal_Robots_ROS2_Gaze
 - `config/ur_controllers.yaml`
 - `scripts/gazebo_motion.py`, `scripts/joint_points_act_service.py`
 
+🎥 **Demo:** [UR3 moving in Gazebo](https://drive.google.com/file/d/1PE3DwFaBpafk_dYYePK-26resAGDYOTn/view?usp=sharing)
+
 ### 2. Motion planning with MoveIt (`ros2_ur3_moveit`)
 
 Here the UR3 is customized with a **2-jaw gripper end-effector** (the Panda hand) for pick-and-place, and the combined model is simulated in RViz with **MoveIt 2** motion planning. Instead of commanding joint angles directly, you give a desired **end-effector pose** (position + orientation). MoveIt solves the inverse kinematics with the **KDL kinematics solver**, plans a collision-free trajectory and executes it.
@@ -65,6 +76,8 @@ Here the UR3 is customized with a **2-jaw gripper end-effector** (the Panda hand
 
 Other packages in this workspace: `ur3_moveit_config1` and `ur3_gripper_moveit_config` (alternative MoveIt configs for the bare UR3 and for a UR3 with a Robotiq gripper), `panda_description` (gripper meshes plus the combined `ur3_panda_gripper.urdf`), and `robotiq_arg85_description` (with an added `ur3_robotiq_gripper.urdf`).
 
+🎥 **Demo:** [MoveIt motion planning in RViz and joint-angle recording](https://drive.google.com/file/d/11h6GLUL-r-kAuBZAxoEpLJ22V9rI8s3I/view?usp=sharing)
+
 ### 3. Controlling the real UR3 hardware (`ros2_ur3_hardware_control`)
 
 The physical UR3 is controlled from ROS 2 with the **Universal Robots ROS 2 driver** (`ur_robot_driver`, Humble). The **External Control URCap** is installed on the robot's teach pendant, with the host PC's IP and port configured, so that ROS can command the robot.
@@ -80,6 +93,8 @@ After you start the `external_control` program on the pendant, a goal-publisher 
 **Going from simulation to the real robot:** to reach a Cartesian target on the real robot, the motion is first planned in MoveIt (section 2), and the resulting joint angles are saved to CSV. Those values are then used as the position goals in this config file.
 
 `simple_moveit2_universal_robots_movement/` contains MoveIt `MoveGroupInterface` nodes for the real robot's `ur_manipulator` group. `hello_moveit_ur.cpp` moves the robot to a target pose, and `pose_end_effector.cpp` reads and prints the current end-effector pose.
+
+🎥 **Demo:** [Real UR3 controlled through ROS 2](https://drive.google.com/file/d/1zVEsSdLhUvHBWT_ES3-_VT3H8fEbtrh_/view?usp=sharing)
 
 ---
 
@@ -105,6 +120,8 @@ The UR3 is modeled in **RoboDK** with three reference frames: the robot base, th
 | `ImportCSV_XYZ_1_DO_control_reducing_no_of_points.py` | Same, plus **digital-output control of the glue dispenser** (`setDO`): dispensing turns on just before tracing starts and off right after it ends |
 
 For the glue-dispensing application, a glue-holder tube is attached to the end-effector, and the dispenser module is wired to the robot's digital outputs. The three scripts run together as a single RoboDK program.
+
+🎥 **Demos:** [contour detection + RoboDK tracing (1)](https://drive.google.com/file/d/1M3b55jrSM6bCR4SARstUZwAzJ8IIUkt2/view?usp=sharing) · [(2)](https://drive.google.com/file/d/1ndm5ypgysjGRwmhZ_eQcjg_SJYLkwsUF/view?usp=sharing)
 
 ---
 
