@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: robotiq_arg85_description
+    relative_path: robots/ur3_robotiq_gripper.urdf
+  srdf:
+    relative_path: config/ur3_robot.srdf
+  package_settings:
+    author_name: laasya
+    author_email: laasyak02@gmail.com
+    generated_timestamp: 1707977584
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

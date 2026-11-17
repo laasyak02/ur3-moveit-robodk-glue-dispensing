@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: moveit_resources_panda_description
+    relative_path: urdf/ur3_panda_gripper.urdf
+  srdf:
+    relative_path: config/ur3_robot.srdf
+  package_settings:
+    author_name: laasya
+    author_email: laasyak02@gmail.com
+    generated_timestamp: 1707981986
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

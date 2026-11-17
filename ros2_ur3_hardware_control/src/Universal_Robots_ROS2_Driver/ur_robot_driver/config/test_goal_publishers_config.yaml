@@ -1,0 +1,65 @@
+publisher_scaled_joint_trajectory_controller:
+  ros__parameters:
+
+    controller_name: "scaled_joint_trajectory_controller"
+    wait_sec_between_publish: 6
+    
+    goal_names: ["pos1", "pos2", "pos3", "pos4"]
+    pos1:
+      positions: [1.28133, -0.11, 0.655388, -2.11802, -1.5679, -0.29]
+    pos2:
+      positions: [1.24904, -0.18, 0.87751, -2.27188, -1.569, -0.324936]
+    pos3:
+      positions: [1.2583, 0.755391, -1.10933, -1.23, -1.5718, -0.32]
+    pos4:
+      positions: [1.2405, -0.306174, 1.23146, -2.50427, -1.57446, -0.337422]
+    joints:
+      - shoulder_pan_joint
+      - shoulder_lift_joint
+      - elbow_joint
+      - wrist_1_joint
+      - wrist_2_joint
+      - wrist_3_joint
+
+    check_starting_point: true
+    starting_point_limits:
+      shoulder_pan_joint: [-6.28,6.28]
+      shoulder_lift_joint: [-6.28,6.28]
+      elbow_joint: [-3.14,3.14]
+      wrist_1_joint: [-6.28,6.28]
+      wrist_2_joint: [-6.28,6.28]
+      wrist_3_joint: [-6.28,6.28]
+
+publisher_joint_trajectory_controller:
+  ros__parameters:
+
+    controller_name: "joint_trajectory_controller"
+    wait_sec_between_publish: 6
+
+    goal_names: ["pos1", "pos2", "pos3", "pos4"]
+    pos1:
+      positions: [-3.42613, -1.65291, -1.3712, 4.59356, 4.71845, -1.28904]
+    pos2:
+      positions: [0.939302, -1.38641, 0.0, -0.322498, 1.54773, 0.63309]
+    pos3:
+      positions: [0.0, -1.57, 0.0, -1.57, 0.0, 0.0]
+    pos4:
+      positions: [0.939302, -1.38641, 0.0, -0.322498, 1.54773, 0.63309]
+
+    joints:
+      - shoulder_pan_joint
+      - shoulder_lift_joint
+      - elbow_joint
+      - wrist_1_joint
+      - wrist_2_joint
+      - wrist_3_joint
+
+    check_starting_point: true
+    starting_point_limits:
+      shoulder_pan_joint: [-6.28,6.28]
+      shoulder_lift_joint: [-6.28,6.28]
+      elbow_joint: [-3.14,3.14]
+      wrist_1_joint: [-6.28,6.28]
+      wrist_2_joint: [-6.28,6.28]
+      wrist_3_joint: [-6.28,6.28]
+
