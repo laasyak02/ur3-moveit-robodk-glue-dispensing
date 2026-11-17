@@ -15,7 +15,12 @@ https://github.com/user-attachments/assets/8a413dd6-08f7-47d2-9824-7e47cafdabab
 
 ### Contour detection + RoboDK contour following for glue dispensing
 
-| https://github.com/user-attachments/assets/c142b887-3fd6-4e01-82c5-cde47c66b90d | https://github.com/user-attachments/assets/da7d888d-d346-4a67-a078-a5cf114c005b |
+<table>
+  <tr>
+    <td><video src="https://github.com/user-attachments/assets/c142b887-3fd6-4e01-82c5-cde47c66b90d" controls></video></td>
+    <td><video src="https://github.com/user-attachments/assets/da7d888d-d346-4a67-a078-a5cf114c005b" controls></video></td>
+  </tr>
+</table>
 
 ---
 
