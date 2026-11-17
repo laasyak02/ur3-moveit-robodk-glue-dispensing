@@ -7,7 +7,7 @@ This project was carried out as part of an internship at the Central Manufacturi
 
 **Tech stack:** ROS 2 Humble · Ubuntu 22.04 · MoveIt 2 · Gazebo Classic · RViz2 · ros2_control · C++ · Python · OpenCV · Intel RealSense (pyrealsense2) · RoboDK API
 
-## 🎥 Demo videos
+## Demo videos
 
 ### Real UR3 hardware controlled from ROS 2
 
@@ -94,7 +94,7 @@ After you start the `external_control` program on the pendant, a goal-publisher 
 
 `simple_moveit2_universal_robots_movement/` contains MoveIt `MoveGroupInterface` nodes for the real robot's `ur_manipulator` group. `hello_moveit_ur.cpp` moves the robot to a target pose, and `pose_end_effector.cpp` reads and prints the current end-effector pose.
 
-🎥 **Demo:** [real UR3 video above](#-demo-videos)
+**Demo:** [real UR3 video above](#-demo-videos)
 
 ---
 
@@ -121,7 +121,7 @@ The UR3 is modeled in **RoboDK** with three reference frames: the robot base, th
 
 For the glue-dispensing application, a glue-holder tube is attached to the end-effector, and the dispenser module is wired to the robot's digital outputs. The three scripts run together as a single RoboDK program.
 
-🎥 **Demo:** [glue-dispensing videos above](#-demo-videos)
+**Demo:** [glue-dispensing videos above](#-demo-videos)
 
 ---
 
