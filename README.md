@@ -11,12 +11,25 @@ This project focuses on simulating and controlling the **Universal Robots UR3**,
 
 ## 🎥 Demo videos
 
-| Demo | Video |
-|---|---|
-| UR3 simulated in Gazebo and moved with joint trajectories | [Watch](https://drive.google.com/file/d/1PE3DwFaBpafk_dYYePK-26resAGDYOTn/view?usp=sharing) |
-| MoveIt motion planning in RViz + recording joint angles | [Watch](https://drive.google.com/file/d/11h6GLUL-r-kAuBZAxoEpLJ22V9rI8s3I/view?usp=sharing) |
-| Real UR3 hardware controlled from ROS 2 | [Watch](https://drive.google.com/file/d/1zVEsSdLhUvHBWT_ES3-_VT3H8fEbtrh_/view?usp=sharing) |
-| Contour detection + RoboDK contour following (glue dispensing) | [Watch (1)](https://drive.google.com/file/d/1M3b55jrSM6bCR4SARstUZwAzJ8IIUkt2/view?usp=sharing) · [Watch (2)](https://drive.google.com/file/d/1ndm5ypgysjGRwmhZ_eQcjg_SJYLkwsUF/view?usp=sharing) |
+### 1. UR3 simulated in Gazebo and moved with joint trajectories
+
+<!-- VIDEO: drag 1_gazebo_simulation.mp4 here -->
+
+### 2. MoveIt motion planning in RViz + recording joint angles
+
+<!-- VIDEO: drag 2_moveit_motion_planning.mp4 here -->
+
+### 3. Real UR3 hardware controlled from ROS 2
+
+<!-- VIDEO: drag 3_real_ur3_hardware.mp4 here -->
+
+### 4. Contour detection + RoboDK contour following for glue dispensing
+
+<!-- VIDEO: drag 4_robodk_glue_dispensing_1.mp4 here -->
+
+<!-- VIDEO: drag 5_robodk_glue_dispensing_2.mp4 here -->
+
+<sub>Full-quality originals: [Gazebo](https://drive.google.com/file/d/1PE3DwFaBpafk_dYYePK-26resAGDYOTn/view?usp=sharing) · [MoveIt](https://drive.google.com/file/d/11h6GLUL-r-kAuBZAxoEpLJ22V9rI8s3I/view?usp=sharing) · [Real UR3](https://drive.google.com/file/d/1zVEsSdLhUvHBWT_ES3-_VT3H8fEbtrh_/view?usp=sharing) · [RoboDK (1)](https://drive.google.com/file/d/1M3b55jrSM6bCR4SARstUZwAzJ8IIUkt2/view?usp=sharing) · [RoboDK (2)](https://drive.google.com/file/d/1ndm5ypgysjGRwmhZ_eQcjg_SJYLkwsUF/view?usp=sharing)</sub>
 
 ---
 
@@ -55,7 +68,7 @@ Key files (in `src/Universal_Robots_Gazebo_Simulation/Universal_Robots_ROS2_Gaze
 - `config/ur_controllers.yaml`
 - `scripts/gazebo_motion.py`, `scripts/joint_points_act_service.py`
 
-🎥 **Demo:** [UR3 moving in Gazebo](https://drive.google.com/file/d/1PE3DwFaBpafk_dYYePK-26resAGDYOTn/view?usp=sharing)
+🎥 **Demo:** [video 1 above](#-demo-videos)
 
 ### 2. Motion planning with MoveIt (`ros2_ur3_moveit`)
 
@@ -76,7 +89,7 @@ Here the UR3 is customized with a **2-jaw gripper end-effector** (the Panda hand
 
 Other packages in this workspace: `ur3_moveit_config1` and `ur3_gripper_moveit_config` (alternative MoveIt configs for the bare UR3 and for a UR3 with a Robotiq gripper), `panda_description` (gripper meshes plus the combined `ur3_panda_gripper.urdf`), and `robotiq_arg85_description` (with an added `ur3_robotiq_gripper.urdf`).
 
-🎥 **Demo:** [MoveIt motion planning in RViz and joint-angle recording](https://drive.google.com/file/d/11h6GLUL-r-kAuBZAxoEpLJ22V9rI8s3I/view?usp=sharing)
+🎥 **Demo:** [video 2 above](#-demo-videos)
 
 ### 3. Controlling the real UR3 hardware (`ros2_ur3_hardware_control`)
 
@@ -94,7 +107,7 @@ After you start the `external_control` program on the pendant, a goal-publisher 
 
 `simple_moveit2_universal_robots_movement/` contains MoveIt `MoveGroupInterface` nodes for the real robot's `ur_manipulator` group. `hello_moveit_ur.cpp` moves the robot to a target pose, and `pose_end_effector.cpp` reads and prints the current end-effector pose.
 
-🎥 **Demo:** [Real UR3 controlled through ROS 2](https://drive.google.com/file/d/1zVEsSdLhUvHBWT_ES3-_VT3H8fEbtrh_/view?usp=sharing)
+🎥 **Demo:** [video 3 above](#-demo-videos)
 
 ---
 
@@ -121,7 +134,7 @@ The UR3 is modeled in **RoboDK** with three reference frames: the robot base, th
 
 For the glue-dispensing application, a glue-holder tube is attached to the end-effector, and the dispenser module is wired to the robot's digital outputs. The three scripts run together as a single RoboDK program.
 
-🎥 **Demos:** [contour detection + RoboDK tracing (1)](https://drive.google.com/file/d/1M3b55jrSM6bCR4SARstUZwAzJ8IIUkt2/view?usp=sharing) · [(2)](https://drive.google.com/file/d/1ndm5ypgysjGRwmhZ_eQcjg_SJYLkwsUF/view?usp=sharing)
+🎥 **Demos:** [videos 4 above](#-demo-videos)
 
 ---
 
