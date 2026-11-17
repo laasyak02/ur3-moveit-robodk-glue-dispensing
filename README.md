@@ -39,24 +39,25 @@ Each `ros2_*` folder is an independent colcon workspace.
 
 ### 1. Gazebo simulation
 
-- UR3 **URDF/xacro** model with the `gazebo_ros2_control` plugin, so ros2_control drives the simulated arm.
-- One launch file (`ur_sim_control.launch.py`) brings up Gazebo, RViz, the robot state publisher, joint state broadcaster and joint trajectory controller.
-- `gazebo_motion.py` publishes a `JointTrajectory` of joint-angle waypoints; `joint_points_act_service.py` sends the same through the `FollowJointTrajectory` action.
+The first step was getting the UR3 running in simulation. The robot is described by a **URDF/xacro** model (its links, joints, limits and meshes), which also loads the `gazebo_ros2_control` plugin so that the standard ros2_control controllers can drive the simulated arm just like a real one.
+
+A single launch file (`ur_sim_control.launch.py`) starts everything needed: Gazebo with the robot spawned in it, RViz for visualization, and the nodes that publish the robot's joint states and transforms, along with the joint trajectory controller. To move the arm, `gazebo_motion.py` publishes a `JointTrajectory` message, a list of joint-angle waypoints with a time for each, which the controller then follows. `joint_points_act_service.py` does the same thing through the `FollowJointTrajectory` action server.
 
 ### 2. MoveIt motion planning
 
-- UR3 fitted with a **2-jaw gripper** (Panda hand) and configured with the MoveIt Setup Assistant (`ur3_panda_hand_moveit_config`): arm, hand and combined planning groups, KDL kinematics, trajectory + gripper controllers.
-- Targets are given as **end-effector poses**; MoveIt solves IK, plans a collision-free path and executes it.
-- C++ nodes (`hello_moveit/`): `hello_moveit.cpp` plans and executes to a target pose via `MoveGroupInterface`; `montiored_planning_scene_subscriber.cpp` logs the planned joint angles to **CSV** for reuse on the real robot.
+Commanding joint angles directly works, but in practice you usually want the end-effector to reach a specific position and orientation. For this, the UR3 was fitted with a **2-jaw gripper** (the Panda hand) and set up in **MoveIt 2** using the MoveIt Setup Assistant (`ur3_panda_hand_moveit_config`). The configuration defines planning groups for the arm, the gripper and both together, uses the KDL kinematics solver, and connects MoveIt to the arm and gripper controllers.
+
+Given a target **end-effector pose**, MoveIt solves the inverse kinematics, plans a collision-free trajectory and executes it. This is done from C++ in `hello_moveit.cpp`, which uses the `MoveGroupInterface` to set the target, plan and execute. A second node, `montiored_planning_scene_subscriber.cpp`, listens while the trajectory runs and saves the joint angles MoveIt computes at each waypoint to a **CSV file**, which is later used to move the real robot.
 
 ### 3. Real UR3 hardware
 
-- The real UR3 runs the **External Control URCap** and is driven by `ur_robot_driver`:
-  ```bash
-  ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3 robot_ip:=192.168.1.11 launch_rviz:=true
-  ```
-- Joint goals in `test_goal_publishers_config.yaml` are sent to the trajectory controller. These come from the MoveIt-planned CSV, so **planning happens in simulation and runs on hardware**.
-- `simple_moveit2_universal_robots_movement/` adds MoveIt nodes for moving the real arm to a pose and reading back the end-effector pose.
+The physical UR3 is controlled from ROS 2 using the **Universal Robots ROS 2 driver**. The **External Control URCap** is installed on the robot's teach pendant and pointed at the host PC, which lets ROS send commands to the robot:
+
+```bash
+ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3 robot_ip:=192.168.1.11 launch_rviz:=true
+```
+
+Once the external control program is running on the pendant, a goal publisher sends a sequence of joint-angle targets (listed in `test_goal_publishers_config.yaml`) to the trajectory controller. These targets come from the CSV recorded in the MoveIt step, so a motion can be **planned and checked in simulation first, then run on the real robot**. The `simple_moveit2_universal_robots_movement/` package also adds MoveIt nodes for moving the real arm to a pose and reading back its current end-effector pose.
 
 🎥 **Demo:** [real UR3 video above](#demo-videos)
 
@@ -64,9 +65,13 @@ Each `ros2_*` folder is an independent colcon workspace.
 
 ## Part B – Contour following and glue dispensing (RoboDK)
 
-- **Contour detection** (`counteract_reducing_no_of_points.py`): a RealSense D435 above the gripper captures color + depth; OpenCV thresholds the image and keeps the largest contour. Neighboring points are median-merged to reduce jerky motion, and `(x, y, z, speed)` points are written to CSV.
-- **Contour following** (`ImportCSV_XYZ_reducing_no_of_points.py`): the RoboDK Python API loads the CSV, moves home (`MoveJ`), traces the contour with `MoveL` at each point's speed, and returns home.
-- **Glue dispensing** (`ImportCSV_XYZ_1_DO_control_reducing_no_of_points.py`): same path, with the dispenser switched on/off through the robot's **digital outputs** (`setDO`) at the start and end of the trace.
+The goal here was to have the UR3 automatically trace the outline of an object and dispense glue along it, the way it would on a production line.
+
+**Contour detection.** An Intel RealSense D435 depth camera is mounted above the gripper, looking down at the workspace. `counteract_reducing_no_of_points.py` captures a color and depth frame, converts the image to black and white with OpenCV, and picks out the largest contour, which is the object's outline. The raw contour has so many points that the arm's motion becomes jerky, so every few neighboring points are merged into one (using their median) to give a smoother path. The height comes from the depth image, and the final `(x, y, z, speed)` points are saved to a CSV file.
+
+**Contour following.** The UR3 is modeled in **RoboDK**, with a work frame that acts as the origin for the contour points. `ImportCSV_XYZ_reducing_no_of_points.py` uses the RoboDK Python API to load the CSV, move the robot to a home position, trace the contour with straight-line moves at the speed given for each point, and return home. RoboDK handles the inverse kinematics along the way.
+
+**Glue dispensing.** For the actual application, a glue tube is attached to the end-effector and the dispenser is wired to the robot's digital outputs. `ImportCSV_XYZ_1_DO_control_reducing_no_of_points.py` follows the same path, but switches the dispenser on just before tracing begins and off right after it ends, so glue is applied only along the contour.
 
 🎥 **Demo:** [glue-dispensing videos above](#demo-videos)
 
