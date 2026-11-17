@@ -50,7 +50,6 @@ Getting the UR3 running in simulation, driven by the same ros2_control controlle
 Moving the end-effector to a target position and orientation instead of commanding each joint by hand.
 
 - **Robot setup:** the UR3 is fitted with a 2-jaw gripper (the Panda hand) and configured in **MoveIt 2** with the MoveIt Setup Assistant (`ur3_panda_hand_moveit_config`).
-- **Configuration:** there are planning groups for the arm, the gripper and both together. The config uses the KDL inverse-kinematics solver and connects MoveIt to the arm and gripper controllers.
 - **Planning to a pose:** `hello_moveit.cpp` uses the `MoveGroupInterface` to set a target end-effector pose. MoveIt solves the inverse kinematics, plans a collision-free trajectory, and executes it.
 - **Recording the motion:** `montiored_planning_scene_subscriber.cpp` saves the joint angles at each waypoint of the planned trajectory to a CSV file. These are later used to drive the real robot.
 
@@ -58,7 +57,7 @@ Moving the end-effector to a target position and orientation instead of commandi
 
 Running motions on the physical UR3 from ROS 2.
 
-- **Connection:** the robot is controlled with the Universal Robots ROS 2 driver. The **External Control URCap** on the teach pendant lets ROS send it commands:
+- **Control:** the robot is controlled with the Universal Robots ROS 2 driver. The **External Control URCap** on the teach pendant of the real UR3 lets ROS send it commands:
   ```bash
   ros2 launch ur_robot_driver ur_control.launch.py ur_type:=ur3 robot_ip:=192.168.1.11 launch_rviz:=true
   ```
@@ -76,7 +75,7 @@ Having the UR3 automatically trace an object's outline and dispense glue along i
 
 - **Contour detection:** a RealSense D435 depth camera mounted above the gripper captures color and depth images of the workspace. `counteract_reducing_no_of_points.py` converts the image to black and white with OpenCV and picks out the largest contour, which is the object's outline.
 - **Smoothing the path:** the raw contour has too many points, which makes the arm's motion jerky. Every few neighboring points are merged into one using their median. The height is taken from the depth image, and the final `(x, y, z, speed)` points are saved to a CSV file.
-- **Contour following:** the UR3 is modeled in **RoboDK**, with a work frame that acts as the origin for the points. `ImportCSV_XYZ_reducing_no_of_points.py` loads the CSV, moves the robot to a home position, traces the contour with straight-line moves at each point's speed, and then returns home.
+- **Contour following:** the UR3 is modeled in **RoboDK**, with a work frame that acts as the origin for the points. `ImportCSV_XYZ_reducing_no_of_points.py` loads the CSV, moves the robot to a home position, traces the contour, and then returns home.
 - **Glue dispensing:** a glue tube is attached to the end-effector, and the dispenser is wired to the robot's digital outputs. `ImportCSV_XYZ_1_DO_control_reducing_no_of_points.py` follows the same path, but turns the dispenser on just before tracing starts and off right after it ends, so glue is applied only along the contour.
 
 🎥 **Demo:** [glue-dispensing videos above](#demo-videos)
@@ -108,7 +107,7 @@ ros2 run hello_moveit hello_moveit                        # plan to a pose
 
 ## Third-party packages
 
-Several packages are based on open-source repositories, included here with the modifications made for this project:
+A few packages are based on open-source repositories with modifications made for this project:
 
 | Package | Upstream |
 |---|---|
