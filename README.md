@@ -1,8 +1,6 @@
 # UR3 Manipulator: ROS 2 Simulation, MoveIt Motion Planning, Hardware Control & RoboDK Glue Dispensing
 
-Project work carried out at the **Central Manufacturing Technology Institute (CMTI), Bengaluru** - Smart Manufacturing Demo and Development Cell (SMDDC), Jan – Jun 2024.
-
-This project focuses on simulating and controlling the **Universal Robots UR3**, a 6-DOF collaborative robot (cobot) with a 3 kg payload. It has two parts:
+This project was carried out as part of an internship at the Central Manufacturing Technology Institute (CMTI), Bengaluru from Jan - Jun 2024. It focuses on simulating and controlling the **Universal Robots UR3**, a 6-DOF collaborative robot (cobot) with a 3 kg payload. It has two parts:
 
 - **Part A – Simulating and controlling the UR3 with ROS 2:** simulation in Gazebo and RViz, motion planning with MoveIt, and control of the real UR3 hardware through the UR ROS 2 driver.
 - **Part B – Contour following and glue dispensing with RoboDK:** an Intel RealSense D435 depth camera detects the outline of an object, and the UR3 traces that contour while dispensing glue along it, programmed through the RoboDK Python API.
