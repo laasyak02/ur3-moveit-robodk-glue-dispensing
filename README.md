@@ -11,15 +11,11 @@ This project was carried out as part of an internship at the Central Manufacturi
 
 ### Real UR3 hardware controlled from ROS 2
 
-<!-- VIDEO: drag real_ur3_hardware.mp4 here -->
+https://github.com/user-attachments/assets/8a413dd6-08f7-47d2-9824-7e47cafdabab
 
 ### Contour detection + RoboDK contour following for glue dispensing
 
-<!-- VIDEO: drag glue_dispensing_1.mp4 here -->
-
-<!-- VIDEO: drag glue_dispensing_2.mp4 here -->
-
-<sub>Full-quality originals: [Real UR3](https://drive.google.com/file/d/1zVEsSdLhUvHBWT_ES3-_VT3H8fEbtrh_/view?usp=sharing) · [Glue dispensing (1)](https://drive.google.com/file/d/1M3b55jrSM6bCR4SARstUZwAzJ8IIUkt2/view?usp=sharing) · [Glue dispensing (2)](https://drive.google.com/file/d/1ndm5ypgysjGRwmhZ_eQcjg_SJYLkwsUF/view?usp=sharing)</sub>
+| https://github.com/user-attachments/assets/c142b887-3fd6-4e01-82c5-cde47c66b90d | https://github.com/user-attachments/assets/da7d888d-d346-4a67-a078-a5cf114c005b |
 
 ---
 
@@ -162,13 +158,3 @@ Several packages are based on open-source repositories, included here with the m
 | `simple_moveit2_universal_robots_movement` | [LucaBross/simple_moveit2_universal_robots_movement](https://github.com/LucaBross/simple_moveit2_universal_robots_movement) |
 | `robotiq_arg85_description` | [a-price/robotiq_arg85_description](https://github.com/a-price/robotiq_arg85_description) |
 | `panda_description`, `panda_moveit_config` | [moveit_resources](https://github.com/ros-planning/moveit_resources) |
-
-The `hello_moveit` node follows the [MoveIt 2 "Your First C++ MoveIt Project"](https://moveit.picknik.ai/humble/doc/tutorials/your_first_project/your_first_project.html) tutorial.
-
-## Future work
-- Optimize MoveIt planning for smoother, better-tuned trajectories
-- Produce smoother, more continuous contours
-- Full **3D contour following** that uses the depth of every contour point, so the path follows height changes on the object for more accurate glue dispensing
-
-## Acknowledgements
-Mentored by Harikrishna S Thota (Scientist D), C-SMPM, CMTI Bengaluru.
