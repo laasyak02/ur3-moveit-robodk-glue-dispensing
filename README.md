@@ -9,25 +9,17 @@ This project was carried out as part of an internship at the Central Manufacturi
 
 ## 🎥 Demo videos
 
-### 1. UR3 simulated in Gazebo and moved with joint trajectories
+### Real UR3 hardware controlled from ROS 2
 
-<!-- VIDEO: drag 1_gazebo_simulation.mp4 here -->
+<!-- VIDEO: drag real_ur3_hardware.mp4 here -->
 
-### 2. MoveIt motion planning in RViz + recording joint angles
+### Contour detection + RoboDK contour following for glue dispensing
 
-<!-- VIDEO: drag 2_moveit_motion_planning.mp4 here -->
+<!-- VIDEO: drag glue_dispensing_1.mp4 here -->
 
-### 3. Real UR3 hardware controlled from ROS 2
+<!-- VIDEO: drag glue_dispensing_2.mp4 here -->
 
-<!-- VIDEO: drag 3_real_ur3_hardware.mp4 here -->
-
-### 4. Contour detection + RoboDK contour following for glue dispensing
-
-<!-- VIDEO: drag 4_robodk_glue_dispensing_1.mp4 here -->
-
-<!-- VIDEO: drag 5_robodk_glue_dispensing_2.mp4 here -->
-
-<sub>Full-quality originals: [Gazebo](https://drive.google.com/file/d/1PE3DwFaBpafk_dYYePK-26resAGDYOTn/view?usp=sharing) · [MoveIt](https://drive.google.com/file/d/11h6GLUL-r-kAuBZAxoEpLJ22V9rI8s3I/view?usp=sharing) · [Real UR3](https://drive.google.com/file/d/1zVEsSdLhUvHBWT_ES3-_VT3H8fEbtrh_/view?usp=sharing) · [RoboDK (1)](https://drive.google.com/file/d/1M3b55jrSM6bCR4SARstUZwAzJ8IIUkt2/view?usp=sharing) · [RoboDK (2)](https://drive.google.com/file/d/1ndm5ypgysjGRwmhZ_eQcjg_SJYLkwsUF/view?usp=sharing)</sub>
+<sub>Full-quality originals: [Real UR3](https://drive.google.com/file/d/1zVEsSdLhUvHBWT_ES3-_VT3H8fEbtrh_/view?usp=sharing) · [Glue dispensing (1)](https://drive.google.com/file/d/1M3b55jrSM6bCR4SARstUZwAzJ8IIUkt2/view?usp=sharing) · [Glue dispensing (2)](https://drive.google.com/file/d/1ndm5ypgysjGRwmhZ_eQcjg_SJYLkwsUF/view?usp=sharing)</sub>
 
 ---
 
@@ -66,8 +58,6 @@ Key files (in `src/Universal_Robots_Gazebo_Simulation/Universal_Robots_ROS2_Gaze
 - `config/ur_controllers.yaml`
 - `scripts/gazebo_motion.py`, `scripts/joint_points_act_service.py`
 
-🎥 **Demo:** [video 1 above](#-demo-videos)
-
 ### 2. Motion planning with MoveIt (`ros2_ur3_moveit`)
 
 Here the UR3 is customized with a **2-jaw gripper end-effector** (the Panda hand) for pick-and-place, and the combined model is simulated in RViz with **MoveIt 2** motion planning. Instead of commanding joint angles directly, you give a desired **end-effector pose** (position + orientation). MoveIt solves the inverse kinematics with the **KDL kinematics solver**, plans a collision-free trajectory and executes it.
@@ -87,8 +77,6 @@ Here the UR3 is customized with a **2-jaw gripper end-effector** (the Panda hand
 
 Other packages in this workspace: `ur3_moveit_config1` and `ur3_gripper_moveit_config` (alternative MoveIt configs for the bare UR3 and for a UR3 with a Robotiq gripper), `panda_description` (gripper meshes plus the combined `ur3_panda_gripper.urdf`), and `robotiq_arg85_description` (with an added `ur3_robotiq_gripper.urdf`).
 
-🎥 **Demo:** [video 2 above](#-demo-videos)
-
 ### 3. Controlling the real UR3 hardware (`ros2_ur3_hardware_control`)
 
 The physical UR3 is controlled from ROS 2 with the **Universal Robots ROS 2 driver** (`ur_robot_driver`, Humble). The **External Control URCap** is installed on the robot's teach pendant, with the host PC's IP and port configured, so that ROS can command the robot.
@@ -105,7 +93,7 @@ After you start the `external_control` program on the pendant, a goal-publisher 
 
 `simple_moveit2_universal_robots_movement/` contains MoveIt `MoveGroupInterface` nodes for the real robot's `ur_manipulator` group. `hello_moveit_ur.cpp` moves the robot to a target pose, and `pose_end_effector.cpp` reads and prints the current end-effector pose.
 
-🎥 **Demo:** [video 3 above](#-demo-videos)
+🎥 **Demo:** [real UR3 video above](#-demo-videos)
 
 ---
 
@@ -132,7 +120,7 @@ The UR3 is modeled in **RoboDK** with three reference frames: the robot base, th
 
 For the glue-dispensing application, a glue-holder tube is attached to the end-effector, and the dispenser module is wired to the robot's digital outputs. The three scripts run together as a single RoboDK program.
 
-🎥 **Demos:** [videos 4 above](#-demo-videos)
+🎥 **Demo:** [glue-dispensing videos above](#-demo-videos)
 
 ---
 
